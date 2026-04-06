@@ -1,0 +1,1018 @@
+[
+  {
+    "name": "Virtual Grocery Hub",
+    "application": "An online supermarket",
+    "saved_at": "2026-04-05T17:18:39.575753Z",
+    "plan": {
+      "epics": [
+        {
+          "id": "E1",
+          "name": "User Account Management",
+          "summary": "Manage user accounts including registration, login, and profile management."
+        },
+        {
+          "id": "E2",
+          "name": "Product Catalog",
+          "summary": "Manage product listings, categories, and search functionality."
+        },
+        {
+          "id": "E3",
+          "name": "Shopping Cart",
+          "summary": "Implement shopping cart functionality for adding, removing, and viewing items."
+        },
+        {
+          "id": "E4",
+          "name": "Checkout Process",
+          "summary": "Facilitate the checkout process including payment and order confirmation."
+        }
+      ],
+      "sprints": [
+        {
+          "sprint_number": 1,
+          "goal": "This sprint establishes account setup and access across Product Catalog, User Account Management, so users can create accounts and sign in confidently.",
+          "stories": [
+            {
+              "id": "S4",
+              "title": "Product Listing",
+              "epic_id": "E2",
+              "description": "As a user, I want to view a list of available products so that I can choose what to buy.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the product listing page\nAnd products are available",
+                "Scenario: View products\nWhen I access the product listing\nThen I should see a list of products\nAnd each product should display its name and price",
+                "Scenario: No products available\nGiven no products are available\nWhen I access the product listing\nThen I should see a message indicating no products found"
+              ],
+              "technical_specifications": [
+                "Product database schema",
+                "Pagination mechanism"
+              ],
+              "non_functional_requirements": [
+                "Load time < 3 seconds",
+                "Responsive design"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Access the page",
+                  "expected_behaviour": "User sees a list of products"
+                },
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Access the page with no products",
+                  "expected_behaviour": "User sees no products found message"
+                }
+              ],
+              "estimate_points": 4,
+              "dependencies": [],
+              "priority": "High",
+              "epic_name": "Product Catalog",
+              "epic_color": "#D8F3DC"
+            },
+            {
+              "id": "S5",
+              "title": "Product Search",
+              "epic_id": "E2",
+              "description": "As a user, I want to search for products so that I can quickly find what I need.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the product listing page\nAnd products are available",
+                "Scenario: Successful search\nGiven I enter a valid product name\nWhen I perform the search\nThen I should see the relevant products",
+                "Scenario: No results found\nGiven I enter a non-existent product name\nWhen I perform the search\nThen I should see a message indicating no results found"
+              ],
+              "technical_specifications": [
+                "Search algorithm",
+                "Indexing for performance"
+              ],
+              "non_functional_requirements": [
+                "Search response time < 2 seconds",
+                "Search results relevance"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Enter valid product name 2) Click search",
+                  "expected_behaviour": "User sees relevant products"
+                },
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Enter invalid product name 2) Click search",
+                  "expected_behaviour": "User sees no results found message"
+                }
+              ],
+              "estimate_points": 3,
+              "dependencies": [
+                "S4"
+              ],
+              "priority": "High",
+              "epic_name": "Product Catalog",
+              "epic_color": "#D8F3DC"
+            },
+            {
+              "id": "S1",
+              "title": "User Registration",
+              "epic_id": "E1",
+              "description": "As a new user, I want to register for an account so that I can access personalized features.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the registration page\nAnd I have not registered before",
+                "Scenario: Successful registration\nGiven I fill in valid user details\nWhen I submit the registration form\nThen I should see a confirmation message\nAnd receive a welcome email",
+                "Scenario: Registration with existing email\nGiven I fill in an email already registered\nWhen I submit the registration form\nThen I should see an error message"
+              ],
+              "technical_specifications": [
+                "User data validation",
+                "Email confirmation mechanism"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "Data encryption for sensitive information"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the registration page",
+                  "test_steps": "1) Enter valid details 2) Click register",
+                  "expected_behaviour": "User receives a confirmation message"
+                },
+                {
+                  "preconditions": "User is on the registration page",
+                  "test_steps": "1) Enter existing email 2) Click register",
+                  "expected_behaviour": "User sees an error message"
+                }
+              ],
+              "estimate_points": 5,
+              "dependencies": [],
+              "priority": "High",
+              "epic_name": "User Account Management",
+              "epic_color": "#FFE8D6"
+            },
+            {
+              "id": "S2",
+              "title": "User Login",
+              "epic_id": "E1",
+              "description": "As a registered user, I want to log in to my account so that I can access my profile.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have an existing account\nAnd I am on the login page",
+                "Scenario: Successful login\nGiven I enter valid credentials\nWhen I click the login button\nThen I should be redirected to my dashboard",
+                "Scenario: Failed login\nGiven I enter invalid credentials\nWhen I click the login button\nThen I should see an error message"
+              ],
+              "technical_specifications": [
+                "Authentication mechanism",
+                "Session management"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "Account lockout after 5 failed attempts"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the login page",
+                  "test_steps": "1) Enter valid credentials 2) Click login",
+                  "expected_behaviour": "User is redirected to the dashboard"
+                },
+                {
+                  "preconditions": "User is on the login page",
+                  "test_steps": "1) Enter invalid credentials 2) Click login",
+                  "expected_behaviour": "User sees an error message"
+                }
+              ],
+              "estimate_points": 3,
+              "dependencies": [
+                "S1"
+              ],
+              "priority": "High",
+              "epic_name": "User Account Management",
+              "epic_color": "#FFE8D6"
+            }
+          ]
+        },
+        {
+          "sprint_number": 2,
+          "goal": "This sprint delivers account setup and access across Product Catalog, Shopping Cart, so users can create accounts and sign in confidently.",
+          "stories": [
+            {
+              "id": "S6",
+              "title": "Product Details",
+              "epic_id": "E2",
+              "description": "As a user, I want to view detailed information about a product so that I can make informed purchase decisions.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the product listing page\nAnd I select a product",
+                "Scenario: View product details\nWhen I click on a product\nThen I should see detailed information about the product\nAnd an option to add it to the cart",
+                "Scenario: Product not found\nGiven I enter an invalid product ID\nWhen I access the product details\nThen I should see a product not found message"
+              ],
+              "technical_specifications": [
+                "Product detail page design",
+                "Data retrieval from database"
+              ],
+              "non_functional_requirements": [
+                "Load time < 3 seconds",
+                "Mobile-friendly layout"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Click on a product",
+                  "expected_behaviour": "User sees detailed product information"
+                },
+                {
+                  "preconditions": "User enters invalid product ID",
+                  "test_steps": "1) Access product details",
+                  "expected_behaviour": "User sees product not found message"
+                }
+              ],
+              "estimate_points": 3,
+              "dependencies": [
+                "S4"
+              ],
+              "priority": "Medium",
+              "epic_name": "Product Catalog",
+              "epic_color": "#D8F3DC"
+            },
+            {
+              "id": "S7",
+              "title": "Add to Cart",
+              "epic_id": "E3",
+              "description": "As a user, I want to add products to my shopping cart so that I can purchase them later.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the product details page\nAnd I have selected a product",
+                "Scenario: Successful addition to cart\nWhen I click 'Add to Cart'\nThen the product should be added to my cart\nAnd I should see a confirmation message",
+                "Scenario: Add out-of-stock product\nGiven the product is out of stock\nWhen I click 'Add to Cart'\nThen I should see an out-of-stock message"
+              ],
+              "technical_specifications": [
+                "Cart data structure",
+                "User session management"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "Data consistency"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the product details page",
+                  "test_steps": "1) Click 'Add to Cart'",
+                  "expected_behaviour": "Product is added to the cart"
+                },
+                {
+                  "preconditions": "User is on the product details page",
+                  "test_steps": "1) Click 'Add to Cart' on out-of-stock product",
+                  "expected_behaviour": "User sees out-of-stock message"
+                }
+              ],
+              "estimate_points": 4,
+              "dependencies": [
+                "S6"
+              ],
+              "priority": "High",
+              "epic_name": "Shopping Cart",
+              "epic_color": "#E0FBFC"
+            },
+            {
+              "id": "S3",
+              "title": "Profile Management",
+              "epic_id": "E1",
+              "description": "As a logged-in user, I want to manage my profile so that I can update my information.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am logged into my account\nAnd I am on the profile page",
+                "Scenario: Update profile information\nGiven I change my details\nWhen I save the changes\nThen I should see a success message\nAnd my updated information should be displayed",
+                "Scenario: Cancel profile update\nGiven I change my details\nWhen I click cancel\nThen I should see my original information"
+              ],
+              "technical_specifications": [
+                "Form validation",
+                "Data persistence"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "Data privacy compliance"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the profile page",
+                  "test_steps": "1) Update details 2) Click save",
+                  "expected_behaviour": "User sees a success message"
+                },
+                {
+                  "preconditions": "User is on the profile page",
+                  "test_steps": "1) Update details 2) Click cancel",
+                  "expected_behaviour": "User sees original information"
+                }
+              ],
+              "estimate_points": 4,
+              "dependencies": [
+                "S2"
+              ],
+              "priority": "Medium",
+              "epic_name": "User Account Management",
+              "epic_color": "#FFE8D6"
+            },
+            {
+              "id": "S8",
+              "title": "View Cart",
+              "epic_id": "E3",
+              "description": "As a user, I want to view the contents of my shopping cart so that I can review my selected items.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have items in my cart\nAnd I am on the cart page",
+                "Scenario: View items in cart\nWhen I access the cart page\nThen I should see a list of items in my cart\nAnd the total price should be displayed",
+                "Scenario: Empty cart\nGiven my cart is empty\nWhen I access the cart page\nThen I should see a message indicating my cart is empty"
+              ],
+              "technical_specifications": [
+                "Cart page design",
+                "Data retrieval for cart contents"
+              ],
+              "non_functional_requirements": [
+                "Load time < 3 seconds",
+                "User-friendly interface"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User has items in the cart",
+                  "test_steps": "1) Access the cart page",
+                  "expected_behaviour": "User sees items and total price"
+                },
+                {
+                  "preconditions": "User's cart is empty",
+                  "test_steps": "1) Access the cart page",
+                  "expected_behaviour": "User sees empty cart message"
+                }
+              ],
+              "estimate_points": 4,
+              "dependencies": [
+                "S7"
+              ],
+              "priority": "Medium",
+              "epic_name": "Shopping Cart",
+              "epic_color": "#E0FBFC"
+            }
+          ]
+        },
+        {
+          "sprint_number": 3,
+          "goal": "This sprint focuses on cart and checkout journey across Shopping Cart, Checkout Process, so users can add items and complete purchase steps.",
+          "stories": [
+            {
+              "id": "S9",
+              "title": "Remove from Cart",
+              "epic_id": "E3",
+              "description": "As a user, I want to remove products from my shopping cart so that I can adjust my selections.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have items in my cart\nAnd I am on the cart page",
+                "Scenario: Successful removal from cart\nWhen I click 'Remove' on an item\nThen the item should be removed from my cart\nAnd the total price should be updated",
+                "Scenario: Remove item not in cart\nGiven I try to remove an item not in my cart\nWhen I click 'Remove'\nThen I should see an error message"
+              ],
+              "technical_specifications": [
+                "Update cart logic",
+                "Data consistency"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "User-friendly interface"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User has items in the cart",
+                  "test_steps": "1) Click 'Remove' on an item",
+                  "expected_behaviour": "Item is removed from the cart"
+                },
+                {
+                  "preconditions": "User tries to remove an item not in the cart",
+                  "test_steps": "1) Click 'Remove' on a non-existent item",
+                  "expected_behaviour": "User sees an error message"
+                }
+              ],
+              "estimate_points": 3,
+              "dependencies": [
+                "S8"
+              ],
+              "priority": "Medium",
+              "epic_name": "Shopping Cart",
+              "epic_color": "#E0FBFC"
+            },
+            {
+              "id": "S10",
+              "title": "Checkout",
+              "epic_id": "E4",
+              "description": "As a user, I want to proceed to checkout so that I can finalize my purchase.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have items in my cart\nAnd I am on the checkout page",
+                "Scenario: Successful checkout\nWhen I enter valid payment information\nAnd I confirm the order\nThen I should see an order confirmation message\nAnd my order should be processed",
+                "Scenario: Checkout with empty cart\nGiven my cart is empty\nWhen I try to access the checkout page\nThen I should see an error message"
+              ],
+              "technical_specifications": [
+                "Payment gateway integration",
+                "Order processing logic"
+              ],
+              "non_functional_requirements": [
+                "Transaction response time < 2 seconds",
+                "Secure payment processing"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User has items in the cart",
+                  "test_steps": "1) Enter payment details 2) Click confirm",
+                  "expected_behaviour": "User sees order confirmation message"
+                },
+                {
+                  "preconditions": "User's cart is empty",
+                  "test_steps": "1) Access checkout page",
+                  "expected_behaviour": "User sees error message"
+                }
+              ],
+              "estimate_points": 5,
+              "dependencies": [
+                "S9"
+              ],
+              "priority": "High",
+              "epic_name": "Checkout Process",
+              "epic_color": "#EAE4E9"
+            },
+            {
+              "id": "S11",
+              "title": "Order History",
+              "epic_id": "E4",
+              "description": "As a user, I want to view my order history so that I can track my past purchases.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am logged into my account\nAnd I have made purchases",
+                "Scenario: View order history\nWhen I access the order history page\nThen I should see a list of my past orders\nAnd the details of each order",
+                "Scenario: No orders found\nGiven I have not made any purchases\nWhen I access the order history page\nThen I should see a message indicating no orders found"
+              ],
+              "technical_specifications": [
+                "Order history database schema",
+                "Data retrieval logic"
+              ],
+              "non_functional_requirements": [
+                "Load time < 3 seconds",
+                "User-friendly interface"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is logged in and has made purchases",
+                  "test_steps": "1) Access order history page",
+                  "expected_behaviour": "User sees past orders"
+                },
+                {
+                  "preconditions": "User has not made any purchases",
+                  "test_steps": "1) Access order history page",
+                  "expected_behaviour": "User sees no orders found message"
+                }
+              ],
+              "estimate_points": 5,
+              "dependencies": [
+                "S10"
+              ],
+              "priority": "Medium",
+              "epic_name": "Checkout Process",
+              "epic_color": "#EAE4E9"
+            }
+          ]
+        },
+        {
+          "sprint_number": 4,
+          "goal": "This sprint advances post-purchase order experience across Checkout Process, so users can monitor and manage their orders.",
+          "stories": [
+            {
+              "id": "S12",
+              "title": "Order Confirmation Email",
+              "epic_id": "E4",
+              "description": "As a user, I want to receive an order confirmation email so that I have a record of my purchase.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have successfully completed a purchase",
+                "Scenario: Receive confirmation email\nWhen I complete the checkout process\nThen I should receive an email confirmation\nAnd the email should contain my order details",
+                "Scenario: No email on failure\nGiven my purchase fails\nWhen I try to complete the checkout\nThen I should not receive an email confirmation"
+              ],
+              "technical_specifications": [
+                "Email service integration",
+                "Email template design"
+              ],
+              "non_functional_requirements": [
+                "Email delivery time < 5 minutes",
+                "Email content accuracy"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User has completed a purchase",
+                  "test_steps": "1) Check email inbox",
+                  "expected_behaviour": "User receives order confirmation email"
+                },
+                {
+                  "preconditions": "User's purchase fails",
+                  "test_steps": "1) Check email inbox",
+                  "expected_behaviour": "User does not receive confirmation email"
+                }
+              ],
+              "estimate_points": 5,
+              "dependencies": [
+                "S10"
+              ],
+              "priority": "Medium",
+              "epic_name": "Checkout Process",
+              "epic_color": "#EAE4E9"
+            }
+          ]
+        }
+      ],
+      "unallocated_stories": []
+    }
+  },
+  {
+    "name": "Daily Stock Tracker App",
+    "application": "A daily stock monitoring website",
+    "saved_at": "2026-04-05T17:27:05.565771Z",
+    "plan": {
+      "epics": [
+        {
+          "id": "E1",
+          "name": "User Account Management",
+          "summary": "Manage user accounts including registration, login, and profile management."
+        },
+        {
+          "id": "E2",
+          "name": "Product Catalog",
+          "summary": "Manage product listings, categories, and search functionality."
+        },
+        {
+          "id": "E3",
+          "name": "Shopping Cart",
+          "summary": "Implement shopping cart functionality for adding, removing, and viewing items."
+        },
+        {
+          "id": "E4",
+          "name": "Checkout Process",
+          "summary": "Facilitate the checkout process including payment and order confirmation."
+        }
+      ],
+      "sprints": [
+        {
+          "sprint_number": 1,
+          "goal": "This sprint establishes account setup and access across Product Catalog, User Account Management, so users can create accounts and sign in confidently.",
+          "stories": [
+            {
+              "id": "S4",
+              "title": "Product Listing",
+              "epic_id": "E2",
+              "description": "As a user, I want to view a list of available products so that I can choose what to buy.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the product listing page\nAnd products are available",
+                "Scenario: View products\nWhen I access the product listing\nThen I should see a list of products\nAnd each product should display its name and price",
+                "Scenario: No products available\nGiven no products are available\nWhen I access the product listing\nThen I should see a message indicating no products found"
+              ],
+              "technical_specifications": [
+                "Product database schema",
+                "Pagination mechanism"
+              ],
+              "non_functional_requirements": [
+                "Load time < 3 seconds",
+                "Responsive design"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Access the page",
+                  "expected_behaviour": "User sees a list of products"
+                },
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Access the page with no products",
+                  "expected_behaviour": "User sees no products found message"
+                }
+              ],
+              "estimate_points": 4,
+              "dependencies": [],
+              "priority": "High",
+              "epic_name": "Product Catalog",
+              "epic_color": "#D8F3DC"
+            },
+            {
+              "id": "S5",
+              "title": "Product Search",
+              "epic_id": "E2",
+              "description": "As a user, I want to search for products so that I can quickly find what I need.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the product listing page\nAnd products are available",
+                "Scenario: Successful search\nGiven I enter a valid product name\nWhen I perform the search\nThen I should see the relevant products",
+                "Scenario: No results found\nGiven I enter a non-existent product name\nWhen I perform the search\nThen I should see a message indicating no results found"
+              ],
+              "technical_specifications": [
+                "Search algorithm",
+                "Indexing for performance"
+              ],
+              "non_functional_requirements": [
+                "Search response time < 2 seconds",
+                "Search results relevance"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Enter valid product name 2) Click search",
+                  "expected_behaviour": "User sees relevant products"
+                },
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Enter invalid product name 2) Click search",
+                  "expected_behaviour": "User sees no results found message"
+                }
+              ],
+              "estimate_points": 3,
+              "dependencies": [
+                "S4"
+              ],
+              "priority": "High",
+              "epic_name": "Product Catalog",
+              "epic_color": "#D8F3DC"
+            },
+            {
+              "id": "S1",
+              "title": "User Registration",
+              "epic_id": "E1",
+              "description": "As a new user, I want to register for an account so that I can access personalized features.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the registration page\nAnd I have not registered before",
+                "Scenario: Successful registration\nGiven I fill in valid user details\nWhen I submit the registration form\nThen I should see a confirmation message\nAnd receive a welcome email",
+                "Scenario: Registration with existing email\nGiven I fill in an email already registered\nWhen I submit the registration form\nThen I should see an error message"
+              ],
+              "technical_specifications": [
+                "User data validation",
+                "Email confirmation mechanism"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "Data encryption for sensitive information"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the registration page",
+                  "test_steps": "1) Enter valid details 2) Click register",
+                  "expected_behaviour": "User receives a confirmation message"
+                },
+                {
+                  "preconditions": "User is on the registration page",
+                  "test_steps": "1) Enter existing email 2) Click register",
+                  "expected_behaviour": "User sees an error message"
+                }
+              ],
+              "estimate_points": 5,
+              "dependencies": [],
+              "priority": "High",
+              "epic_name": "User Account Management",
+              "epic_color": "#FFE8D6"
+            },
+            {
+              "id": "S2",
+              "title": "User Login",
+              "epic_id": "E1",
+              "description": "As a registered user, I want to log in to my account so that I can access my profile.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have an existing account\nAnd I am on the login page",
+                "Scenario: Successful login\nGiven I enter valid credentials\nWhen I click the login button\nThen I should be redirected to my dashboard",
+                "Scenario: Failed login\nGiven I enter invalid credentials\nWhen I click the login button\nThen I should see an error message"
+              ],
+              "technical_specifications": [
+                "Authentication mechanism",
+                "Session management"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "Account lockout after 5 failed attempts"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the login page",
+                  "test_steps": "1) Enter valid credentials 2) Click login",
+                  "expected_behaviour": "User is redirected to the dashboard"
+                },
+                {
+                  "preconditions": "User is on the login page",
+                  "test_steps": "1) Enter invalid credentials 2) Click login",
+                  "expected_behaviour": "User sees an error message"
+                }
+              ],
+              "estimate_points": 3,
+              "dependencies": [
+                "S1"
+              ],
+              "priority": "High",
+              "epic_name": "User Account Management",
+              "epic_color": "#FFE8D6"
+            }
+          ]
+        },
+        {
+          "sprint_number": 2,
+          "goal": "This sprint delivers account setup and access across Product Catalog, Shopping Cart, so users can create accounts and sign in confidently.",
+          "stories": [
+            {
+              "id": "S6",
+              "title": "Product Details",
+              "epic_id": "E2",
+              "description": "As a user, I want to view detailed information about a product so that I can make informed purchase decisions.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the product listing page\nAnd I select a product",
+                "Scenario: View product details\nWhen I click on a product\nThen I should see detailed information about the product\nAnd an option to add it to the cart",
+                "Scenario: Product not found\nGiven I enter an invalid product ID\nWhen I access the product details\nThen I should see a product not found message"
+              ],
+              "technical_specifications": [
+                "Product detail page design",
+                "Data retrieval from database"
+              ],
+              "non_functional_requirements": [
+                "Load time < 3 seconds",
+                "Mobile-friendly layout"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the product listing page",
+                  "test_steps": "1) Click on a product",
+                  "expected_behaviour": "User sees detailed product information"
+                },
+                {
+                  "preconditions": "User enters invalid product ID",
+                  "test_steps": "1) Access product details",
+                  "expected_behaviour": "User sees product not found message"
+                }
+              ],
+              "estimate_points": 3,
+              "dependencies": [
+                "S4"
+              ],
+              "priority": "Medium",
+              "epic_name": "Product Catalog",
+              "epic_color": "#D8F3DC"
+            },
+            {
+              "id": "S7",
+              "title": "Add to Cart",
+              "epic_id": "E3",
+              "description": "As a user, I want to add products to my shopping cart so that I can purchase them later.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am on the product details page\nAnd I have selected a product",
+                "Scenario: Successful addition to cart\nWhen I click 'Add to Cart'\nThen the product should be added to my cart\nAnd I should see a confirmation message",
+                "Scenario: Add out-of-stock product\nGiven the product is out of stock\nWhen I click 'Add to Cart'\nThen I should see an out-of-stock message"
+              ],
+              "technical_specifications": [
+                "Cart data structure",
+                "User session management"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "Data consistency"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the product details page",
+                  "test_steps": "1) Click 'Add to Cart'",
+                  "expected_behaviour": "Product is added to the cart"
+                },
+                {
+                  "preconditions": "User is on the product details page",
+                  "test_steps": "1) Click 'Add to Cart' on out-of-stock product",
+                  "expected_behaviour": "User sees out-of-stock message"
+                }
+              ],
+              "estimate_points": 4,
+              "dependencies": [
+                "S6"
+              ],
+              "priority": "High",
+              "epic_name": "Shopping Cart",
+              "epic_color": "#E0FBFC"
+            },
+            {
+              "id": "S3",
+              "title": "Profile Management",
+              "epic_id": "E1",
+              "description": "As a logged-in user, I want to manage my profile so that I can update my information.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am logged into my account\nAnd I am on the profile page",
+                "Scenario: Update profile information\nGiven I change my details\nWhen I save the changes\nThen I should see a success message\nAnd my updated information should be displayed",
+                "Scenario: Cancel profile update\nGiven I change my details\nWhen I click cancel\nThen I should see my original information"
+              ],
+              "technical_specifications": [
+                "Form validation",
+                "Data persistence"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "Data privacy compliance"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is on the profile page",
+                  "test_steps": "1) Update details 2) Click save",
+                  "expected_behaviour": "User sees a success message"
+                },
+                {
+                  "preconditions": "User is on the profile page",
+                  "test_steps": "1) Update details 2) Click cancel",
+                  "expected_behaviour": "User sees original information"
+                }
+              ],
+              "estimate_points": 4,
+              "dependencies": [
+                "S2"
+              ],
+              "priority": "Medium",
+              "epic_name": "User Account Management",
+              "epic_color": "#FFE8D6"
+            },
+            {
+              "id": "S8",
+              "title": "View Cart",
+              "epic_id": "E3",
+              "description": "As a user, I want to view the contents of my shopping cart so that I can review my selected items.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have items in my cart\nAnd I am on the cart page",
+                "Scenario: View items in cart\nWhen I access the cart page\nThen I should see a list of items in my cart\nAnd the total price should be displayed",
+                "Scenario: Empty cart\nGiven my cart is empty\nWhen I access the cart page\nThen I should see a message indicating my cart is empty"
+              ],
+              "technical_specifications": [
+                "Cart page design",
+                "Data retrieval for cart contents"
+              ],
+              "non_functional_requirements": [
+                "Load time < 3 seconds",
+                "User-friendly interface"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User has items in the cart",
+                  "test_steps": "1) Access the cart page",
+                  "expected_behaviour": "User sees items and total price"
+                },
+                {
+                  "preconditions": "User's cart is empty",
+                  "test_steps": "1) Access the cart page",
+                  "expected_behaviour": "User sees empty cart message"
+                }
+              ],
+              "estimate_points": 4,
+              "dependencies": [
+                "S7"
+              ],
+              "priority": "Medium",
+              "epic_name": "Shopping Cart",
+              "epic_color": "#E0FBFC"
+            }
+          ]
+        },
+        {
+          "sprint_number": 3,
+          "goal": "This sprint focuses on cart and checkout journey across Shopping Cart, Checkout Process, so users can add items and complete purchase steps.",
+          "stories": [
+            {
+              "id": "S9",
+              "title": "Remove from Cart",
+              "epic_id": "E3",
+              "description": "As a user, I want to remove products from my shopping cart so that I can adjust my selections.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have items in my cart\nAnd I am on the cart page",
+                "Scenario: Successful removal from cart\nWhen I click 'Remove' on an item\nThen the item should be removed from my cart\nAnd the total price should be updated",
+                "Scenario: Remove item not in cart\nGiven I try to remove an item not in my cart\nWhen I click 'Remove'\nThen I should see an error message"
+              ],
+              "technical_specifications": [
+                "Update cart logic",
+                "Data consistency"
+              ],
+              "non_functional_requirements": [
+                "Response time < 2 seconds",
+                "User-friendly interface"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User has items in the cart",
+                  "test_steps": "1) Click 'Remove' on an item",
+                  "expected_behaviour": "Item is removed from the cart"
+                },
+                {
+                  "preconditions": "User tries to remove an item not in the cart",
+                  "test_steps": "1) Click 'Remove' on a non-existent item",
+                  "expected_behaviour": "User sees an error message"
+                }
+              ],
+              "estimate_points": 3,
+              "dependencies": [
+                "S8"
+              ],
+              "priority": "Medium",
+              "epic_name": "Shopping Cart",
+              "epic_color": "#E0FBFC"
+            },
+            {
+              "id": "S10",
+              "title": "Checkout",
+              "epic_id": "E4",
+              "description": "As a user, I want to proceed to checkout so that I can finalize my purchase.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have items in my cart\nAnd I am on the checkout page",
+                "Scenario: Successful checkout\nWhen I enter valid payment information\nAnd I confirm the order\nThen I should see an order confirmation message\nAnd my order should be processed",
+                "Scenario: Checkout with empty cart\nGiven my cart is empty\nWhen I try to access the checkout page\nThen I should see an error message"
+              ],
+              "technical_specifications": [
+                "Payment gateway integration",
+                "Order processing logic"
+              ],
+              "non_functional_requirements": [
+                "Transaction response time < 2 seconds",
+                "Secure payment processing"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User has items in the cart",
+                  "test_steps": "1) Enter payment details 2) Click confirm",
+                  "expected_behaviour": "User sees order confirmation message"
+                },
+                {
+                  "preconditions": "User's cart is empty",
+                  "test_steps": "1) Access checkout page",
+                  "expected_behaviour": "User sees error message"
+                }
+              ],
+              "estimate_points": 5,
+              "dependencies": [
+                "S9"
+              ],
+              "priority": "High",
+              "epic_name": "Checkout Process",
+              "epic_color": "#EAE4E9"
+            },
+            {
+              "id": "S11",
+              "title": "Order History",
+              "epic_id": "E4",
+              "description": "As a user, I want to view my order history so that I can track my past purchases.",
+              "acceptance_criteria": [
+                "Background:\nGiven I am logged into my account\nAnd I have made purchases",
+                "Scenario: View order history\nWhen I access the order history page\nThen I should see a list of my past orders\nAnd the details of each order",
+                "Scenario: No orders found\nGiven I have not made any purchases\nWhen I access the order history page\nThen I should see a message indicating no orders found"
+              ],
+              "technical_specifications": [
+                "Order history database schema",
+                "Data retrieval logic"
+              ],
+              "non_functional_requirements": [
+                "Load time < 3 seconds",
+                "User-friendly interface"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User is logged in and has made purchases",
+                  "test_steps": "1) Access order history page",
+                  "expected_behaviour": "User sees past orders"
+                },
+                {
+                  "preconditions": "User has not made any purchases",
+                  "test_steps": "1) Access order history page",
+                  "expected_behaviour": "User sees no orders found message"
+                }
+              ],
+              "estimate_points": 5,
+              "dependencies": [
+                "S10"
+              ],
+              "priority": "Medium",
+              "epic_name": "Checkout Process",
+              "epic_color": "#EAE4E9"
+            }
+          ]
+        },
+        {
+          "sprint_number": 4,
+          "goal": "This sprint advances post-purchase order experience across Checkout Process, so users can monitor and manage their orders.",
+          "stories": [
+            {
+              "id": "S12",
+              "title": "Order Confirmation Email",
+              "epic_id": "E4",
+              "description": "As a user, I want to receive an order confirmation email so that I have a record of my purchase.",
+              "acceptance_criteria": [
+                "Background:\nGiven I have successfully completed a purchase",
+                "Scenario: Receive confirmation email\nWhen I complete the checkout process\nThen I should receive an email confirmation\nAnd the email should contain my order details",
+                "Scenario: No email on failure\nGiven my purchase fails\nWhen I try to complete the checkout\nThen I should not receive an email confirmation"
+              ],
+              "technical_specifications": [
+                "Email service integration",
+                "Email template design"
+              ],
+              "non_functional_requirements": [
+                "Email delivery time < 5 minutes",
+                "Email content accuracy"
+              ],
+              "test_cases": [
+                {
+                  "preconditions": "User has completed a purchase",
+                  "test_steps": "1) Check email inbox",
+                  "expected_behaviour": "User receives order confirmation email"
+                },
+                {
+                  "preconditions": "User's purchase fails",
+                  "test_steps": "1) Check email inbox",
+                  "expected_behaviour": "User does not receive confirmation email"
+                }
+              ],
+              "estimate_points": 5,
+              "dependencies": [
+                "S10"
+              ],
+              "priority": "Medium",
+              "epic_name": "Checkout Process",
+              "epic_color": "#EAE4E9"
+            }
+          ]
+        }
+      ],
+      "unallocated_stories": []
+    }
+  }
+]

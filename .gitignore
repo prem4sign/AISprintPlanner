@@ -1,0 +1,4 @@
+secrets.toml
+*.toml
+.env
+__pycache__/
