@@ -12,7 +12,16 @@ from typing import Any, Dict, List, Optional
 import pandas as pd
 import streamlit as st
 from openai import OpenAI
-from streamlit_extras.eval_javascript import eval_javascript
+
+try:
+    from streamlit_extras.eval_javascript import eval_javascript
+
+    HAS_EVAL_JAVASCRIPT = True
+except Exception:
+    HAS_EVAL_JAVASCRIPT = False
+
+    def eval_javascript(*_args: Any, **_kwargs: Any) -> Optional[str]:
+        return None
 
 
 st.set_page_config(page_title="AI Sprint Planner", layout="wide")
@@ -1875,33 +1884,36 @@ if plan_data:
         st.write("Click any story card in a sprint column to see details here.")
 
     if st.session_state.clipboard_copy_pending and st.session_state.clipboard_copy_text:
-        plain_json = json.dumps(st.session_state.clipboard_copy_text)
-        html_json = json.dumps(st.session_state.clipboard_copy_html or st.session_state.clipboard_copy_text)
-        copy_expression = f"""
-            (async () => {{
-                const plainText = {plain_json};
-                const richHtml = {html_json};
-                if (navigator.clipboard && window.ClipboardItem) {{
-                    const item = new ClipboardItem({{
-                        'text/plain': new Blob([plainText], {{ type: 'text/plain' }}),
-                        'text/html': new Blob([richHtml], {{ type: 'text/html' }})
-                    }});
-                    await navigator.clipboard.write([item]);
+        if HAS_EVAL_JAVASCRIPT:
+            plain_json = json.dumps(st.session_state.clipboard_copy_text)
+            html_json = json.dumps(st.session_state.clipboard_copy_html or st.session_state.clipboard_copy_text)
+            copy_expression = f"""
+                (async () => {{
+                    const plainText = {plain_json};
+                    const richHtml = {html_json};
+                    if (navigator.clipboard && window.ClipboardItem) {{
+                        const item = new ClipboardItem({{
+                            'text/plain': new Blob([plainText], {{ type: 'text/plain' }}),
+                            'text/html': new Blob([richHtml], {{ type: 'text/html' }})
+                        }});
+                        await navigator.clipboard.write([item]);
+                        return 'ok';
+                    }}
+                    await navigator.clipboard.writeText(plainText);
                     return 'ok';
-                }}
-                await navigator.clipboard.writeText(plainText);
-                return 'ok';
-            }})().catch((e) => 'error:' + (e && e.message ? e.message : e))
-        """
-        copy_result = eval_javascript(
-            copy_expression,
-            key=f"story-clipboard-copy-{st.session_state.clipboard_copy_nonce}",
-        )
-        if isinstance(copy_result, str):
-            if copy_result == "ok":
-                st.toast("Story details copied to clipboard")
-            else:
-                st.warning("Clipboard copy failed in browser. You can still select and copy the text manually.")
+                }})().catch((e) => 'error:' + (e && e.message ? e.message : e))
+            """
+            copy_result = eval_javascript(
+                copy_expression,
+                key=f"story-clipboard-copy-{st.session_state.clipboard_copy_nonce}",
+            )
+            if isinstance(copy_result, str):
+                if copy_result == "ok":
+                    st.toast("Story details copied to clipboard")
+                else:
+                    st.warning("Clipboard copy failed in browser. You can still select and copy the text manually.")
+        else:
+            st.warning("Clipboard copy helper is unavailable in this deployment. Please copy manually.")
             st.session_state.clipboard_copy_pending = False
 else:
     pass
